@@ -1,0 +1,28 @@
++++
+date = '2016-08-21T16:00:00+01:00'
+draft = false
+title = 'Clean code'
+lang=  'es'
++++
+
+![Portada del libro Clean Code](/images/cleancode.webp)
+
+En todos los aspectos productivos de la sociedad, la calidad de los productos es fundamental. En cuanto a software, es exactamente lo mismo, sólo que es un producto «especial». Y por ello, en la mayoría de los casos el cliente no puede o no sabe «evaluar» la calidad del resultado que se le proporciona, fijándose sólamente si cumple los requisitos que se fijaron tanto en apariencia como en funcionamiento, sin importar cómo está hecho por dentro ni con que nivel de calidad. Sin embargo, la calidad del software desarrollado es fundamental para evitar futuros errores, para que añadir o modificar la funcionalidad del software no sea una pesadilla ni cueste una barbaridad, entre otras razones.
+
+En las empresas de desarollo de software, suele ser una práctica común imponer plazos para la ejecución de desarrollos que, por lo general, son incumplibles para los equipos de desarrollo software, bien por compromisos con el cliente, por costes, o por la razón que sea. Por ello se fuerza al equipo a desarrollar el software a toda velocidad para minimizar el retraso en la entrega (sí, hay que asumir que habrá retraso). Y para ello en muchos casos se llega a los plazos a costa de sacrificar lo que es básico y fundamental: el uso de metodologías de desarrollo que aseguran un mínimo de calidad, como por ejemplo, desarrollo orientado a pruebas (o del inglés, Test Driven Development, TDD), el uso de herramientas de integración contínua o ir refactorizando el código a medida que se va desarrollando, evitando asi la duplicidad de código, haciendo el código legible, siguiendo el principio de unica responsabilidad (o del inglés Single Responsability Principle, SRP) en las clases y métodos, entre otras muchas más reglas que forman parte de lo que se llama en la actualidad «Clean Code». Esto, son malas, muy malas noticias, ya que el resultado es que se conseguirá un producto software «funcionando» en un corto plazo de tiempo y con poco personal, ¿pero a que precio? A costa de que el software desarrollado será muy complejo de mantener, no existirán pruebas unitarias que verifiquen el correcto funcionamiento del sistema por lo que al incluir nuevas funcionalidades tendremos las dudas de si algún efecto lateral habrá roto alguna otra cosa, y que probablemente la legibilidad del código sea muy discutible.
+
+En el blog de [Javier Garzas](http://www.javiergarzas.com/) (muy recomendable) creo recordar que leí un post en el que se dice, muy acertadamente, que la función de los ingenieros de software es la intentar, con toda su pasión, hacer ver a la empresa que la calidad del software no solo es recomendable, sino que es fundamental, y que, por supuesto implica que inicialmente el desarrollo será menos rápido, pero los beneficios a largo plazo son abismales. Y se continuaba con una analogía, un poco extrema, pero que pone de manifiesto lo que acabo de escribir:
+
+Un enfermo que está a punto de ser operado de apendicitis, en el quirófano, ve al cirujano limpiandose las manos y su instrumental y le dice al cirujano: *-«Vamos, doctor, no se lave las manos, da igual, pero opereme ya, yo le pago y le digo que no hay tiempo que perder»-*
+
+El cirujano, como es su deber, no accede a la petición del enfermo, y defenderá a toda costa su necesidad de lavar su instrumental y sus manos, antes de iniciar la intervención. Ya que, aunque tardará menos tiempo en hacer el trabajo, probablemente en el postoperatorio sufra consecuencias graves que se podrían haber evitado.
+
+Pues justo esa es la misión del equipo de desarrollo respecto a la empresa: Hacer ver la importancia de usar Clean Code, o que se asuman las consecuencias de un desarrollo rápido y de mala calidad.
+
+Y para todos los que no lo tengan muy claro, ¿que es eso de «Clean Code»?. Pues buscando en Internet se pueden ver wikipedia, blogs y blogs hablando sobre el tema. Pero yo encontré un libro titulado «Clean Code», sin más. En este [enlace](https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=&sr=) está disponible en Amazon, ví las críticas (todas muy buenas) y no me lo pensé, lo compré. El título, como se puede ver, es toda la una declaración de intenciones. Y la verdad es que el libro no defrauda en absoluto.
+
+En mi opinión el libro es muy exhaustivo cubriendo todos los aspectos relacionados con una buena programación, con ejemplos de que se debe y que no se debe hacer. La mayoría direis que todo esto se explica en la carrera, pero hoy en día cada vez hay mas programadores no informáticos, y aunque se haya explicado siempre es bueno tener en mente lo que está bien de lo que no. Por ello, desde mi humilde opinión, creo que este libro debería ser de obligada lectura para todos los profesionales de la informática (hayan estudiado informática o no).
+
+En el libro se abarcan aspectos mas allá del clean code, tales como concurrencia, patrones de diseño, y que en ciertos casos, dan consejos que para un informático, deberían ser triviales, pero que son muy muy importantes de recordar, especialmente trabajando en una empresa donde se piden cambios y nuevos desarrollos «para ayer», con el objetivo de … eso mismo, escribir «clean code» y que estemos orgullosos de lo que hemos escrito.
+
+¿Es este el único libro? Para nada, hay un montón de buenos libros y enlaces a de blogs al respecto de Clean Code, Desarrollo orientado a test (o del inglés, TDD), y otras metodologías. Pero, personalmente, este libro en particular me ha parecido especialmente claro, directo y en definitiva, útil.

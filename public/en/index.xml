@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>JavierBarbaran.com</title>
+    <link>http://localhost:1313/en/</link>
+    <description>Recent content on JavierBarbaran.com</description>
+    <generator>Hugo -- 0.143.1</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 14 Jan 2025 21:34:02 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World</title>
+      <link>http://localhost:1313/en/posts/hello-world/</link>
+      <pubDate>Tue, 14 Jan 2025 21:34:02 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/hello-world/</guid>
+      <description>&lt;p&gt;Hello English!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>First steps with a fresh Ubuntu 24.04</title>
+      <link>http://localhost:1313/en/posts/ubuntu24firststeps/</link>
+      <pubDate>Sat, 26 Oct 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/ubuntu24firststeps/</guid>
+      <description>&lt;p&gt;I just installed Ubuntu 24.04 LTS on a 2015 MacBook Air to give it a second life. Surprise! All the laptop&amp;rsquo;s functionalities work perfectly: trackpad, WiFi, special function keys, and even sleep mode when closing the lid. Additionally, the system&amp;rsquo;s speed is noticeably superior compared to macOS.&lt;/p&gt;
+&lt;p&gt;Now that I have a fresh Ubuntu installation, what steps should I follow? After researching online, I&amp;rsquo;ve gathered some of the recommended first tasks:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Installing Ubuntu on a Macbook Air from 2015</title>
+      <link>http://localhost:1313/en/posts/ubuntu-macbook/</link>
+      <pubDate>Fri, 25 Oct 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/ubuntu-macbook/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;I&amp;rsquo;ve got a 2015 MacBook Air&lt;/strong&gt; with an Intel i5-5240U processor featuring 4 cores, 4 GB of RAM, and a 128 GB hard drive. Although I’ve always updated it to the latest versions of macOS (something that’s becoming increasingly complicated due to limited disk space), I made the mistake of installing macOS Monterey. This caused the MacBook to become terribly slow—to the point where I barely used it… it became nothing more than a paperweight.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>DietPi, the operating system to give new life to a Raspberry Pi 1</title>
+      <link>http://localhost:1313/en/posts/dietpi-raspi1/</link>
+      <pubDate>Mon, 09 Sep 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/dietpi-raspi1/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Raspberry pi 1 image&#34; loading=&#34;lazy&#34; src=&#34;https://images.prismic.io/rpf-products/3dc09a41-c237-4d2c-a9b8-c92eb3dc98e8_B%2B+ANGLE+1+REFRESH.jpg?auto=compress%2Cformat&amp;fit=max&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Do you have a Raspberry Pi 1 lying around and don’t know what to do with it? While searching the internet, I came across &lt;a href=&#34;https://dietpi.com/&#34;&gt;DietPi&lt;/a&gt;, a Debian-based distribution highly optimized for memory usage, disk space, and CPU usage. It is designed for single-board computers (SBCs), such as all versions of the Raspberry Pi, among others (like Odroid, Pine64, Radxa, Allo, ASUS, NanoPi, OrangePi, ASUS Tinker), as well as miniPCs, virtual machines, and even regular PCs.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Where to store watched movies/series?</title>
+      <link>http://localhost:1313/en/posts/movies-series-app/</link>
+      <pubDate>Fri, 02 Feb 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/movies-series-app/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Image of a TV remote controller&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/tv-series.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;One of my hobbies is watching TV series and movies (both in theaters and at home). At the end of the year, all sorts of recaps appear, showing the movies and shows you’ve watched, which ones you liked the most, etc.&lt;/p&gt;
+&lt;p&gt;For me, though, if I try to remember everything I’ve watched, I end up spending a long time just thinking about it. That’s where my need arises: is there an app for mobile or computer where I can log the movies and series I’ve seen and even rate them? Of course! There must be hundreds, but finding one that actually works for me has been a challenge. Here’s a list of the apps I’ve tried (note: all are for Android, and all are free or have a free plan):&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Books for 2024</title>
+      <link>http://localhost:1313/en/posts/books2024/</link>
+      <pubDate>Thu, 01 Feb 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/books2024/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Image of books I read in 2024&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/books2024.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;This year, as a New Year&amp;rsquo;s resolution, I’ve decided to read more (than in previous years). Achieving this isn’t too difficult since I don’t usually read much, so the goal I’ve set for myself is to read 5 books this year. It may seem like a small number, but for me, it will mean establishing a good habit.&lt;/p&gt;
+&lt;p&gt;And here’s the list of books I’ve selected to read (at least for now):&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About Me</title>
+      <link>http://localhost:1313/en/about/</link>
+      <pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/about/</guid>
+      <description>Learn more about Javier Barbarán</description>
+    </item>
+    <item>
+      <title>Clean code</title>
+      <link>http://localhost:1313/en/posts/cleancode/</link>
+      <pubDate>Sun, 21 Aug 2016 17:34:02 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/cleancode/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Portada del libro Clean Code&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/cleancode.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In all productive aspects of society, product quality is essential. When it comes to software, it&amp;rsquo;s exactly the same—except that software is a special kind of product. For this reason, in most cases, the client cannot or does not know how to evaluate the quality of the delivered product. They only check whether it meets the specified requirements in terms of appearance and functionality, without considering how it was built or its level of quality. However, the quality of developed software is crucial to prevent future errors and ensure that adding or modifying functionality is not a nightmare or excessively costly, among other reasons.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Google Nexus 2012 y Android 5.0.2</title>
+      <link>http://localhost:1313/en/posts/googlenexus2012-android502/</link>
+      <pubDate>Sun, 25 Jan 2015 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/googlenexus2012-android502/</guid>
+      <description>&lt;p&gt;My Nexus 7 is from 2012, it’s not rooted, and about two weeks ago, I received the 5.0.2 update! I was finally going to try Material Design… but nothing could be further from the truth. I quickly noticed that &lt;strong&gt;it took forever to turn on&lt;/strong&gt;, &lt;strong&gt;animations and transitions were painfully slow, and even opening the browser with a simple webpage&lt;/strong&gt; was a struggle… In short, all sorts of &lt;em&gt;performance issues&lt;/em&gt; that I blamed on the new Android version, since the problems started right after the update.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Fog computing</title>
+      <link>http://localhost:1313/en/posts/fog-computing/</link>
+      <pubDate>Sat, 03 Jan 2015 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/fog-computing/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Paisaje con niebla&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/fog.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;So yes, today, January 3, 2015, while browsing the internet, I came across the concept of Fog Computing. And what exactly is &lt;em&gt;Fog Computing&lt;/em&gt;? Is it just another marketing buzzword rather than a real concept?&lt;/p&gt;
+&lt;p&gt;Well, after digging a little deeper, I found more and more information, and it turns out that Fog Computing is defined as an extension of Cloud Computing, specifically designed to meet the needs of the Internet of Things (IoT). The goal is to make these systems more scalable and responsive. How? By enabling embedded devices to make decisions on their own, without having to rely on the cloud—whenever possible and when no additional information or involvement from another device is required.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Instalar Java JDK en Ubuntu 10.04 Lucyd Lynx</title>
+      <link>http://localhost:1313/en/posts/jdk-ubuntu1004/</link>
+      <pubDate>Sat, 16 Mar 2013 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/jdk-ubuntu1004/</guid>
+      <description>&lt;p&gt;Hace poco que he formateado mi Ubuntu y al volver a instalar todo, no he podido encontrar fácilmente la maquina virtual de Java. Intenté instalarlo con el nombre jdk, pero me decía que el paquete hacia referencia a otro y que probablemente estaba obsoleto. ¿Que hice después, irme a la página de Oracle desde donde descargué el último JDK, pero a la hora de asociarlo con mi Ubuntu, tampoco funcionaba. Total, que después de un buen rato buscando en Internet, estoy viendo que ha cambiado de nombre y no es JDK, sino que es,  sorpresa!!, OpenJDK.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MOOCs, ¿El futuro de la enseñanza?</title>
+      <link>http://localhost:1313/en/posts/moocs/</link>
+      <pubDate>Sun, 03 Feb 2013 17:34:02 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/moocs/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m going to start this blog by dedicating my first post to the so-called MOOCs, or in Spanish, cursos abiertos online y masivos (massive open online courses). Many people reading this article probably already know what they are, but for those who don’t, here’s a reference to &lt;a href=&#34;https://es.wikipedia.org/wiki/Massive_Open_Online_Course&#34;&gt;wikipedia&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Why talk about MOOCs?
+Because in recent months, I’ve noticed that more and more of these platforms are emerging (I’ll list them below). So much so that just a week ago, I found and enrolled in an Android course on the MiriadaX platform, which is essentially a Spanish-language MOOC portal.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Brussels</title>
+      <link>http://localhost:1313/en/posts/brussels/</link>
+      <pubDate>Sun, 29 Jul 2007 17:34:02 +0100</pubDate>
+      <guid>http://localhost:1313/en/posts/brussels/</guid>
+      <description>&lt;p&gt;Due to a meeting at the European Commission for the review of a European research project I worked on (&lt;em&gt;SMEPP&lt;/em&gt;), I had the opportunity to briefly visit Brussels, Belgium.&lt;/p&gt;
+&lt;p&gt;I stayed at a hotel in Brussels&amp;rsquo; financial district. Its location was quite convenient, being close to &lt;em&gt;Gare du Nord&lt;/em&gt; station and within a pleasant walking distance of the historic city center and the &lt;em&gt;Grand Place&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;a-glimpse-of-life-in-brussels&#34;&gt;A Glimpse of Life in Brussels&lt;/h3&gt;
+&lt;p&gt;During this visit and the meeting, which was held at the European Commission offices, I got a taste of life in Brussels. Just like in most of Central Europe, lunch takes place at noon, and it’s very common for people to have a sandwich with salad or soup—often eaten in the nearest park if the sun is out.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

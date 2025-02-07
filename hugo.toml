@@ -1,0 +1,130 @@
+baseURL = 'https://javierbarbaran.com/'
+defaultContentLanguage = "es"
+defaultContentLanguageInSubdir = true
+title = 'Javier Barbarán'
+theme = 'PaperMod'
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "JavierBarbaran.com"
+    weight = 1
+    contentDir = "content/en"
+
+    [languages.en.params]
+      [languages.en.params.homeInfoParams]
+        Title = "Welcome to Javier Barbaran's Page"
+        Content = """
+  Hi there! I'm Javier Barbarán, developer and writer. In this blog I share ideas, projects and knowledge.
+  
+  I hope you enjoy the content!
+  """
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        name = "Home"
+        url = "/en/"
+        weight = 1
+
+      [[languages.en.menu.main]]
+        name = "Blog"
+        url = "/en/posts/"
+        weight = 2
+
+      [[languages.en.menu.main]]
+        name = "About"
+        url = "/en/about/"
+        weight = 3
+
+      [[languages.en.menu.main]]
+        name = "Search"
+        url = "/en/search/"
+        weight = 4
+
+      [[languages.en.menu.main]]
+        name = "Archive"
+        url = "/en/archives/"
+        weight = 5
+
+  [languages.es]
+    languageName = "Español"
+    title = "JavierBarbaran.com"
+    weight = 2
+    contentDir = "content/es"
+
+    [languages.es.params]
+      [languages.es.params.homeInfoParams]
+        Title = "Página de Javier Barbarán"
+        Content = """
+  Hola, soy Javier Barbarán, desarrollador y escritor. En este blog comparto mis ideas, proyectos y conocimientos.
+  
+  ¡Espero que disfrutes el contenido!
+  """
+
+    [languages.es.menu]
+      [[languages.es.menu.main]]
+        name = "Inicio"
+        url = "/es/"
+        weight = 1
+
+      [[languages.es.menu.main]]
+        name = "Blog"
+        url = "/es/posts/"
+        weight = 2
+
+      [[languages.es.menu.main]]
+        name = "Sobre mi"
+        url = "/es/about/"
+        weight = 3
+
+      [[languages.es.menu.main]]
+        name = "Buscar"
+        url = "/es/search/"
+        weight = 4
+
+      [[languages.es.menu.main]]
+        name = "Archivo"
+        url = "/es/archives/"
+        weight = 5
+
+    
+[params]
+  ShowShareButtons = true
+  ShowReadingTime = true
+
+  [[params.socialIcons]]
+    name = "GitHub"
+    url = "https://github.com/jbarbaran"
+
+  [[params.socialIcons]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/javierbarbaran/"
+
+  [[params.socialIcons]]
+    name = "Twitter"
+    url = "https://x.com/javibarbaran?mx=2"
+
+  [[params.socialIcons]]
+    name = "googlescholar"
+    url = "https://scholar.google.es/citations?user=S9wf6MgAAAAJ&hl=es"
+
+  [[params.socialIcons]]
+    name = "goodreads"
+    url = "https://www.goodreads.com/user/show/110068486-javier-barbaran"
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    # limit = 10 # refer: https://www.fusejs.io/api/methods.html#search
+    keys = ["title", "permalink", "summary", "content"]
+
+
+[outputs]
+   home = [ "HTML", "RSS", "JSON" ]
+
+[frontmatter]
+   date = [ "date", "publishDate", "lastmod" ]

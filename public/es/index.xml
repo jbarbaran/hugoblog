@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>JavierBarbaran.com</title>
+    <link>http://localhost:1313/es/</link>
+    <description>Recent content on JavierBarbaran.com</description>
+    <generator>Hugo -- 0.143.1</generator>
+    <language>es</language>
+    <lastBuildDate>Fri, 31 Jan 2025 23:33:38 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/es/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hola mundo</title>
+      <link>http://localhost:1313/es/posts/hello-world/</link>
+      <pubDate>Fri, 31 Jan 2025 23:33:38 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/hello-world/</guid>
+      <description>&lt;p&gt;Hola Español!&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Primeros pasos en Ubuntu 24.04 recién instalado</title>
+      <link>http://localhost:1313/es/posts/ubuntu24firststeps/</link>
+      <pubDate>Sat, 26 Oct 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/ubuntu24firststeps/</guid>
+      <description>&lt;p&gt;Acabo de instalar Ubuntu 24.04 LTS en un MacBook Air 2015 para darle una segunda vida. ¡Sorpresa! Todas las funcionalidades del portátil funcionan a la perfección: trackpad, WiFi, teclas de funciones especiales, e incluso el modo de reposo al cerrar el equipo. Además, la velocidad del sistema es notablemente superior comparada con macOS.&lt;/p&gt;
+&lt;p&gt;Ahora que tengo Ubuntu recién instalado, ¿qué pasos debo seguir? Tras investigar en Internet, he recopilado algunas de las primeras tareas recomendadas:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Instalar Ubuntu en Macbook Air de 2015</title>
+      <link>http://localhost:1313/es/posts/ubuntu-macbook/</link>
+      <pubDate>Fri, 25 Oct 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/ubuntu-macbook/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Tengo un MacBook Air de 2015&lt;/strong&gt; con un procesador Intel i5-5240U de 4 núcleos, 4 GB de RAM y un disco duro de 128 GB. Aunque siempre lo he actualizado a las últimas versiones de macOS (algo cada vez más complicado, por falta de espacio en disco), cometí el error de instalarle la versión de macOS Monterey. Esto hizo que el MacBook comenzara a ir terriblemente lento, hasta el punto de que apenas lo usaba… un pisapapeles, vaya.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>DietPi, el sistema operativo para darle una nueva vida a una Raspberry Pi 1</title>
+      <link>http://localhost:1313/es/posts/dietpi-raspi1/</link>
+      <pubDate>Mon, 09 Sep 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/dietpi-raspi1/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Raspberry pi 1 image&#34; loading=&#34;lazy&#34; src=&#34;https://images.prismic.io/rpf-products/3dc09a41-c237-4d2c-a9b8-c92eb3dc98e8_B%2B+ANGLE+1+REFRESH.jpg?auto=compress%2Cformat&amp;fit=max&#34;&gt;&lt;/p&gt;
+&lt;p&gt;¿Tienes por ahí una Raspberry Pi 1 y no sabes que hacer con ella? Buscando un poco por Internet, me he topado con &lt;a href=&#34;https://dietpi.com/&#34;&gt;DietPi&lt;/a&gt;, se trata de una distribución Debian muy optimizada en uso de memoria, espacio en disco y uso de CPU. Está orientada para ordenadores de una placa (o en inglés, Single Board Computer o SBC), como es la Raspberry Pi en todas sus versiones, entre otros (como Odroid, Pine64, Radxa, Allo, ASUS, NanoPi, OrangePi, ASUS Tinker), miniPCs y hasta maquinas virtuales o PCs.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>¿Donde guardar las pelis/series vistas?</title>
+      <link>http://localhost:1313/es/posts/movies-series-app/</link>
+      <pubDate>Fri, 02 Feb 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/movies-series-app/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Image of a TV remote controller&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/tv-series.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Uno de mis hobbies es ver series de televisión y películas (tanto en el cine como en la tele). Al acabar el año, aparecen recopilatorios de las series y pelis que has visto en el último año, cual te ha gustado mas, etc.&lt;/p&gt;
+&lt;p&gt;A mi pero si me pongo a pensarlo, me tiro un buen rato haciendo memoria de qué series o películas he visto. Y de ahí me surge la necesidad, ¿hay alguna aplicación para el móvil u ordenador en el que se pueda anotar las pelis/series vistas e incluso poder valorarlas? Claro! Debe haber cientos, pero encontrar una que a mi me funcione, me ha costado. Aquí os pongo la lista de aplicaciones que he probado (ojo! todas son para Android, y todas son gratuitas o tienen un plan gratis):&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Libros para 2024</title>
+      <link>http://localhost:1313/es/posts/books2024/</link>
+      <pubDate>Thu, 01 Feb 2024 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/books2024/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Image of books I read in 2024&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/books2024.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Este año, como propósito para el año nuevo me he planteado leer mas (que otros años). Conseguirlo no es difícil, ya que no suelo leer mucho, así que el objetivo que me he fijado es leer 5 libros en este año. Puede parecer poco, pero para mi significará establecer un buen hábito.&lt;/p&gt;
+&lt;p&gt;Y aquí está la lista de los libros que, a priori, he seleccionado para leer:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sobre mí</title>
+      <link>http://localhost:1313/es/about/</link>
+      <pubDate>Wed, 31 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/es/about/</guid>
+      <description>Conoce más sobre Javier Barbarán</description>
+    </item>
+    <item>
+      <title>Clean code</title>
+      <link>http://localhost:1313/es/posts/cleancode/</link>
+      <pubDate>Sun, 21 Aug 2016 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/cleancode/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Portada del libro Clean Code&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/cleancode.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;En todos los aspectos productivos de la sociedad, la calidad de los productos es fundamental. En cuanto a software, es exactamente lo mismo, sólo que es un producto «especial». Y por ello, en la mayoría de los casos el cliente no puede o no sabe «evaluar» la calidad del resultado que se le proporciona, fijándose sólamente si cumple los requisitos que se fijaron tanto en apariencia como en funcionamiento, sin importar cómo está hecho por dentro ni con que nivel de calidad. Sin embargo, la calidad del software desarrollado es fundamental para evitar futuros errores, para que añadir o modificar la funcionalidad del software no sea una pesadilla ni cueste una barbaridad, entre otras razones.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Google Nexus 2012 y Android 5.0.2</title>
+      <link>http://localhost:1313/es/posts/googlenexus2012-android502/</link>
+      <pubDate>Sun, 25 Jan 2015 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/googlenexus2012-android502/</guid>
+      <description>&lt;p&gt;Mi Nexus 7 es del año 2012, no está rooteada y hace como dos semanas recibí la actualización 5.0.2! Por fin iba a probar el «Material Design»… pero nada más lejos de la realidad, empecé a notar que &lt;strong&gt;tardaba en encender&lt;/strong&gt;, que &lt;strong&gt;las animaciones y transiciones eran muy penosas, le costaba abrir el navegador&lt;/strong&gt; con una pagina web… en fín, todo &lt;em&gt;&lt;strong&gt;problemas de rendimiento&lt;/strong&gt;&lt;/em&gt; que achaqué al Android nuevo ya que los problemas comenzaron después de la actualización&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Fog computing</title>
+      <link>http://localhost:1313/es/posts/fog-computing/</link>
+      <pubDate>Sat, 03 Jan 2015 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/fog-computing/</guid>
+      <description>&lt;p&gt;&lt;img alt=&#34;Paisaje con niebla&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/fog.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Pues sí, hoy, 3 de enero de 2015 curioseando en Internet me topo con el concepto de “Fog Computing” o computación en la niebla. ¿Y qué es eso de &lt;em&gt;Fog Computing&lt;/em&gt;? ¿Es acaso otro nuevo concepto más relacionado con el marketing que un concepto real?&lt;/p&gt;
+&lt;p&gt;Bueno, investigando un poco más encuentro más y más información y el resultado es que “Fog Computing” se define como una extensión del Cloud Computing que está especialmente enfocado para las necesidades del “Internet Of Things” (IoT), con el objetivo de que este tipo de sistemas de escalen mejor, y sean más reactivos. ¿Cómo? Haciendo que los dispositivos embebidos puedan tomar decisiones sin necesidad de ir a la nube para tomarlas, siempre que sea posible y que no se necesite ninguna información adicional ni involucre a otro dispositivo.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Instalar Java JDK en Ubuntu 10.04 Lucyd Lynx</title>
+      <link>http://localhost:1313/es/posts/jdk-ubuntu1004/</link>
+      <pubDate>Sat, 16 Mar 2013 16:00:00 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/jdk-ubuntu1004/</guid>
+      <description>&lt;p&gt;Hace poco que he formateado mi Ubuntu y al volver a instalar todo, no he podido encontrar fácilmente la maquina virtual de Java. Intenté instalarlo con el nombre jdk, pero me decía que el paquete hacia referencia a otro y que probablemente estaba obsoleto. ¿Que hice después, irme a la página de Oracle desde donde descargué el último JDK, pero a la hora de asociarlo con mi Ubuntu, tampoco funcionaba. Total, que después de un buen rato buscando en Internet, estoy viendo que ha cambiado de nombre y no es JDK, sino que es,  sorpresa!!, OpenJDK.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MOOCs, ¿El futuro de la enseñanza?</title>
+      <link>http://localhost:1313/es/posts/moocs/</link>
+      <pubDate>Sun, 03 Feb 2013 16:00:02 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/moocs/</guid>
+      <description>&lt;p&gt;Voy a estrenar el blog hablando en la primera entrada sobre los llamados MOOCs o en español «cursos abiertos on-line y masivos». Probablemente mucha gente que lea este articulo sabrá de que se trata, pero para los que no, os dejo aquí la referencia a la &lt;a href=&#34;https://es.wikipedia.org/wiki/Massive_Open_Online_Course&#34;&gt;wikipedia&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;¿Porque hablar de MOOCs? Pues porque en los últimos meses he visto que están apareciendo cada vez mas este tipo de portales (los enumero mas abajo). Tanto es así que hace una semana encontré y me inscribí en un curso para aprender Android en el portal Miriada X, que básicamente es un portal MOOC en castellano.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Bruselas</title>
+      <link>http://localhost:1313/es/posts/brussels/</link>
+      <pubDate>Sun, 29 Jul 2007 17:34:02 +0100</pubDate>
+      <guid>http://localhost:1313/es/posts/brussels/</guid>
+      <description>&lt;p&gt;Debido a una reunión en la Comisión Europea para la revisión de un proyecto de investigación europeo en el que trabajé (&lt;em&gt;SMEPP&lt;/em&gt;), tuve la oportunidad de visitar, aunque brevemente, Bruselas, en Bélgica.&lt;/p&gt;
+&lt;p&gt;Me alojé en un hotel situado en el distrito financiero de Bruselas. Su ubicación era bastante buena, ya que estaba cerca de la estación &lt;em&gt;Gare du Nord&lt;/em&gt; y a un agradable paseo del centro histórico y de la &lt;em&gt;Grand Place&lt;/em&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
