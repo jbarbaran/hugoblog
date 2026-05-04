@@ -1,10 +1,12 @@
 baseURL = 'https://javierbarbaran.com/'
+
 defaultContentLanguage = "es"
 defaultContentLanguageInSubdir = true
 title = 'Javier Barbarán'
 theme = 'PaperMod'
 
 [languages]
+
   [languages.en]
     languageName = "English"
     title = "JavierBarbaran.com"
@@ -13,12 +15,13 @@ theme = 'PaperMod'
 
     [languages.en.params]
       [languages.en.params.homeInfoParams]
-        Title = "Welcome to Javier Barbaran's Page"
+        Title = "Javier Barbarán"
         Content = """
-  Hi there! I'm Javier Barbarán, developer and writer. In this blog I share ideas, projects and knowledge.
-  
-  I hope you enjoy the content!
-  """
+<img src="/images/avatar.jpg"
+     style="width:120px;height:120px;border-radius:50%;display:block;margin:0 auto 1.5rem;object-fit:cover;" />
+
+Hi, I'm Javier Barbarán — developer and writer. I share ideas, projects and knowledge here. Hope you enjoy it!
+"""
 
     [languages.en.menu]
       [[languages.en.menu.main]]
@@ -54,12 +57,13 @@ theme = 'PaperMod'
 
     [languages.es.params]
       [languages.es.params.homeInfoParams]
-        Title = "Página de Javier Barbarán"
+        Title = "Javier Barbarán"
         Content = """
-  Hola, soy Javier Barbarán, desarrollador y escritor. En este blog comparto mis ideas, proyectos y conocimientos.
-  
-  ¡Espero que disfrutes el contenido!
-  """
+<img src="/images/avatar.jpg"
+     style="width:120px;height:120px;border-radius:50%;display:block;margin:0 auto 1.5rem;object-fit:cover;" />
+
+Hola, soy Javier Barbarán, desarrollador y escritor. Comparto ideas, proyectos y conocimientos. ¡Espero que disfrutes el contenido!
+"""
 
     [languages.es.menu]
       [[languages.es.menu.main]]
@@ -87,10 +91,11 @@ theme = 'PaperMod'
         url = "/es/archives/"
         weight = 5
 
-    
 [params]
   ShowShareButtons = true
   ShowReadingTime = true
+  ShowToc = true
+  TocOpen = true
 
   [[params.socialIcons]]
     name = "GitHub"
@@ -112,19 +117,25 @@ theme = 'PaperMod'
     name = "goodreads"
     url = "https://www.goodreads.com/user/show/110068486-javier-barbaran"
 
-  [params.fuseOpts]
-    isCaseSensitive = false
-    shouldSort = true
-    location = 0
-    distance = 1000
-    threshold = 0.4
-    minMatchCharLength = 0
-    # limit = 10 # refer: https://www.fusejs.io/api/methods.html#search
-    keys = ["title", "permalink", "summary", "content"]
+[params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = ["title", "permalink", "summary", "content"]
 
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
+  ordered = false
 
 [outputs]
-   home = [ "HTML", "RSS", "JSON" ]
+  home = [ "HTML", "RSS", "JSON" ]
 
 [frontmatter]
-   date = [ "date", "publishDate", "lastmod" ]
+  date = [ "date", "publishDate", "lastmod" ]
+
+[markup.goldmark.renderer]
+  unsafe = true
