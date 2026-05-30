@@ -2,6 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://javierbarbaran.com/en/categories/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/categories/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/posts/homeserver/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/posts/homeserver/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/posts/homeserver/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/tags/home-server/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/tags/home-server/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/tags/home-server/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/tags/homelab/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/tags/homelab/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/tags/homelab/"
+                />
+  </url><url>
     <loc>https://javierbarbaran.com/en/</loc>
     <lastmod>2025-09-15T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -13,6 +65,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://javierbarbaran.com/en/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/tags/mini-pc/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/tags/mini-pc/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/tags/mini-pc/"
                 />
   </url><url>
     <loc>https://javierbarbaran.com/en/posts/</loc>
@@ -27,6 +92,48 @@
                 hreflang="en"
                 href="https://javierbarbaran.com/en/posts/"
                 />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/tags/proxmox/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/tags/proxmox/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/tags/proxmox/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/tags/self-hosting/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/tags/self-hosting/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/tags/self-hosting/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/tags/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/tags/"
+                />
+  </url><url>
+    <loc>https://javierbarbaran.com/en/categories/technology/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://javierbarbaran.com/en/posts/ubuntu24firststeps/</loc>
     <lastmod>2024-10-26T16:00:00+01:00</lastmod>
@@ -196,18 +303,6 @@
                 href="https://javierbarbaran.com/en/archives/"
                 />
   </url><url>
-    <loc>https://javierbarbaran.com/en/categories/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://javierbarbaran.com/es/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://javierbarbaran.com/en/categories/"
-                />
-  </url><url>
     <loc>https://javierbarbaran.com/en/search/</loc>
     <xhtml:link
                 rel="alternate"
@@ -218,18 +313,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://javierbarbaran.com/en/search/"
-                />
-  </url><url>
-    <loc>https://javierbarbaran.com/en/tags/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://javierbarbaran.com/es/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://javierbarbaran.com/en/tags/"
                 />
   </url>
 </urlset>

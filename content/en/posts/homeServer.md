@@ -1,7 +1,7 @@
 ---
 title: "Home server: A mini PC, Proxmox and way too much enthusiasm"
 date: 2025-09-15
-draft: true
+draft: false
 tags:
   - homelab
   - self-hosting

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Home server: A mini PC, Proxmox and way too much enthusiasm | JavierBarbaran.com</title>
+<meta name="keywords" content="homelab, self-hosting, proxmox, mini-pc, home-server">
+<meta name="description" content="How I set up my home server with a Beelink S12 Pro, why I chose Proxmox VE and what services I&rsquo;m running on it.">
+<meta name="author" content="">
+<link rel="canonical" href="https://javierbarbaran.com/en/posts/homeserver/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.72e28df17c5edfcbcd8ef652da62fd0501a9c5c91a30d6853b4a042ef71dfa79.css" integrity="sha256-cuKN8Xxe38vNjvZS2mL9BQGpxckaMNaFO0oELvcd&#43;nk=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://javierbarbaran.com/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://javierbarbaran.com/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://javierbarbaran.com/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://javierbarbaran.com/apple-touch-icon.png">
+<link rel="mask-icon" href="https://javierbarbaran.com/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://javierbarbaran.com/en/posts/homeserver/">
+<link rel="alternate" hreflang="es" href="https://javierbarbaran.com/es/posts/homeserver/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://javierbarbaran.com/en/posts/homeserver/">
+  <meta property="og:site_name" content="JavierBarbaran.com">
+  <meta property="og:title" content="Home server: A mini PC, Proxmox and way too much enthusiasm">
+  <meta property="og:description" content="How I set up my home server with a Beelink S12 Pro, why I chose Proxmox VE and what services I’m running on it.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-09-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-09-15T00:00:00+00:00">
+    <meta property="article:tag" content="Homelab">
+    <meta property="article:tag" content="Self-Hosting">
+    <meta property="article:tag" content="Proxmox">
+    <meta property="article:tag" content="Mini-Pc">
+    <meta property="article:tag" content="Home-Server">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Home server: A mini PC, Proxmox and way too much enthusiasm">
+<meta name="twitter:description" content="How I set up my home server with a Beelink S12 Pro, why I chose Proxmox VE and what services I&rsquo;m running on it.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://javierbarbaran.com/en/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Home server: A mini PC, Proxmox and way too much enthusiasm",
+      "item": "https://javierbarbaran.com/en/posts/homeserver/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Home server: A mini PC, Proxmox and way too much enthusiasm",
+  "name": "Home server: A mini PC, Proxmox and way too much enthusiasm",
+  "description": "How I set up my home server with a Beelink S12 Pro, why I chose Proxmox VE and what services I\u0026rsquo;m running on it.",
+  "keywords": [
+    "homelab", "self-hosting", "proxmox", "mini-pc", "home-server"
+  ],
+  "articleBody": "Building a home server with a mini PC Having a server at home opens up a huge range of possibilities. I’d been thinking about setting one up for a while, and when I finally got started, I realised that half the process was simply deciding what to buy and what to install. So what is a home server actually good for? There are obvious advantages like cutting SaaS costs or gaining privacy, but there’s one that matters more to me than all the others: learning.\nIn this post I’ll walk through the process, the options I considered and why I ended up building my server around a Beelink S12 Pro running Proxmox VE.\nWhy a mini PC? The first decision is form factor. The most common options are:\nAn old PC or laptop from the cupboard. It works, but it’s usually noisy, consumes a lot of power and takes up too much space. A Raspberry Pi. Small and incredibly power-efficient, but limited in RAM and processing power for running several services at once. A NAS. A solid choice if storage is the main priority, but the price climbs quickly. A mini PC. Small, silent, low power consumption, reasonable price. Clear winner. The mini PCs I considered In 2025, there are three families that make sense for a home lab:\nIntel N95 / N100 is probably the most popular choice right now for this kind of use. Very good energy efficiency, full virtualisation support and highly competitive prices. The N100 is more efficient than the N95; the N95 wins slightly on raw performance but at the cost of a bit more power draw. There are countless manufacturers building models around these chips, and the difference between them is usually minimal: what varies is the connectivity, the stock RAM and the after-sales support.\nMac Mini deserves a mention because it’s one of the most well-known options on the market. Performance is excellent and power consumption is surprisingly low, but for me the problem is the price — clearly higher than a Chinese mini PC — and I don’t need something like that to get started.\nFanless mini PCs (no fan). Fully passive models exist, and they’re very quiet as a result. The downside is that passive cooling limits sustained performance and adds a noticeable premium to the price.\nThe final decision: Beelink S12 Pro I went with the Beelink S12 Pro running an Intel N100. The reasons were straightforward:\nGood value for money Very low power consumption 16 GB of RAM NVMe SSD included Compact size The downside is that there’s no dedicated GPU, so AI workloads are limited to small models that run reasonably on CPU. It’s not the most powerful mini PC on the market, but it’s one of the most balanced for a home lab. My goal isn’t to run enterprise infrastructure — it’s to run several services reliably and efficiently.\nThe operating system With the hardware sorted, the next question was what to install. There are basically three paths:\nLinux + Docker directly is the most popular option and the easiest to understand. You install Debian or Ubuntu Server, spin up services with Docker Compose and you’re done. It works very well, but everything shares the same host: if something goes wrong at the OS level, everything goes down together.\nTrueNAS or Unraid are interesting when the focus is a home NAS and your own personal cloud storage. That wasn’t my use case.\nProxmox VE was something I’d never heard of before — and yet it’s what I chose. It’s a virtualisation platform based on Debian that lets you manage virtual machines and LXC (LinuX Containers) containers from a fairly comfortable web interface. The main advantage is isolation: each service lives in its own environment. If I break a container, everything else keeps running. If I want to experiment with something unusual, I do it in a throwaway VM and delete it without a trace.\nIt’s not the simplest option to start with, but the learning curve pays for itself.\nInstalling Proxmox VE The installation process is simpler than it looks. Proxmox ships its system as an ISO image, so the first step is writing it to a USB drive.\nOn Windows, the most convenient tool for this is Balena Etcher: download the ISO from the official Proxmox website, open Etcher, select the image and the drive, and in a few minutes you have a working installer. No fuss.\nWith the USB drive ready, it’s time to boot the Beelink from it. To do that you need to access the system’s boot menu: on the S12 Pro, you do this by pressing the right key immediately after powering on (in my case F7, though it can vary by model). From there you select the USB drive as the boot device and the Proxmox installer loads on its own.\nThe installer itself is a fairly guided graphical wizard. It basically asks for:\nThe disk to install the system on Network configuration (IP address, gateway, DNS) The node name A password for the root user Ten minutes later the system is installed. You pull out the USB drive, the machine reboots and you can access the Proxmox web interface from any browser on your local network at https://SERVER-IP:8006.\nFrom that point on, everything is managed from the browser.\nKey concepts in Proxmox VE Before starting to deploy services, there are two concepts worth understanding properly.\nLXC: lightweight containers LXC containers share the host system’s kernel. This means lower memory usage, lower CPU overhead and almost instant startup. They’re ideal for lightweight services like DNS servers, proxies or any application that doesn’t need a very specific environment.\nVMs: full virtual machines Virtual machines run completely independently, with their own kernel and operating system. In exchange, they consume more resources and take longer to start. They’re the right choice when you need maximum compatibility or isolation, or when the application itself recommends it.\nWhat do I use? My approach is simple:\nIf something can run comfortably in an LXC, I run it in an LXC.\nI only use virtual machines when they offer a clear advantage.\nHow the server is organised My current setup is fairly straightforward:\nproxmox-node │ ├── CT 100 - alpine-adguard ├── CT 101 - tailscale ├── CT 102 - n8n ├── CT 103 - ollama ├── CT 104 - postgresql │ └── VM 200 - home-assistant Lightweight services in LXC, more complex services in VMs. This keeps resource usage under control and makes administration simpler.\nServices I’m running AdGuard Home Acts as a DNS server for my entire home network. It blocks ads at the network level, filters domains and gives visibility into the DNS traffic of every connected device. Deployed in an LXC container, it barely uses any resources.\nHome Assistant It’s always caught my interest — it’s a home automation management system. Where it really shines is in automations: it also collects data from sensors and integrates with practically any smart device you have at home. In this case I used a virtual machine because that’s what Home Assistant recommends.\nTailscale A VPN that lets me access my home network from anywhere without opening ports. Setup is very straightforward and connections are secure.\nn8n n8n is a workflow automation tool, similar in concept to Zapier or Make, but one you can self-host. It lets you connect applications and services together through a visual node-based interface and build fairly complex automations without writing code. It’s one of the services I’ve been getting the most out of lately.\nPostgreSQL Most of the services I set up end up needing some kind of database, and I’d rather have a single centralised PostgreSQL instance than spin up a separate database per container. It’s cleaner, easier to maintain and backups become much simpler.\nOllama With all the AI hype right now, I wanted to experiment with local AI. I’ve installed Ollama with a few small models to run tests. One important caveat: an Intel N100 was not designed for this. That said, it’s perfectly valid for learning, running experiments and using lightweight models — all without depending on external services.\nWhat I might add later As with any home lab, the list of ideas never ends. Some possibilities on my radar:\nJellyfin Nextcloud Grafana + Prometheus Immich Nginx Proxy Manager For now I’m trying to keep things simple and only add new services when I actually need them. And being realistic, my Beelink can’t handle much more — but maybe in the future I’ll upgrade to a more powerful device or even a proper NAS… who knows!\nConclusion Setting up a home server with a mini PC turned out to be much simpler than I expected. The Beelink S12 Pro offers plenty of power for a wide range of home services, and Proxmox VE provides the flexibility to experiment without fear of breaking anything.\nThe combination of the two has let me build a stable, efficient and — above all — enjoyable platform to maintain. And as tends to happen in the world of self-hosting, once you start there’s always another service to try.\n",
+  "wordCount" : "1523",
+  "inLanguage": "en",
+  "datePublished": "2025-09-15T00:00:00Z",
+  "dateModified": "2025-09-15T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://javierbarbaran.com/en/posts/homeserver/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "JavierBarbaran.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://javierbarbaran.com/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://javierbarbaran.com/en/" accesskey="h" title="JavierBarbaran.com (Alt + H)">JavierBarbaran.com</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                    <li>
+                        <a href="https://javierbarbaran.com/es/" title="Español"
+                            aria-label="Español">Es</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://javierbarbaran.com/en/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://javierbarbaran.com/en/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://javierbarbaran.com/en/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://javierbarbaran.com/en/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://javierbarbaran.com/en/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Home server: A mini PC, Proxmox and way too much enthusiasm
+    </h1>
+    <div class="post-meta"><span title='2025-09-15 00:00:00 +0000 UTC'>September 15, 2025</span>&nbsp;·&nbsp;8 min&nbsp;|&nbsp;Translations:
+<ul class="i18n_list">
+    <li>
+        <a href="https://javierbarbaran.com/es/posts/homeserver/">Es</a>
+    </li>
+</ul>
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#building-a-home-server-with-a-mini-pc" aria-label="Building a home server with a mini PC">Building a home server with a mini PC</a><ul>
+                        
+                <li>
+                    <a href="#why-a-mini-pc" aria-label="Why a mini PC?">Why a mini PC?</a></li>
+                <li>
+                    <a href="#the-mini-pcs-i-considered" aria-label="The mini PCs I considered">The mini PCs I considered</a></li>
+                <li>
+                    <a href="#the-final-decision-beelink-s12-pro" aria-label="The final decision: Beelink S12 Pro">The final decision: Beelink S12 Pro</a></li>
+                <li>
+                    <a href="#the-operating-system" aria-label="The operating system">The operating system</a></li>
+                <li>
+                    <a href="#installing-proxmox-ve" aria-label="Installing Proxmox VE">Installing Proxmox VE</a></li>
+                <li>
+                    <a href="#key-concepts-in-proxmox-ve" aria-label="Key concepts in Proxmox VE">Key concepts in Proxmox VE</a><ul>
+                        
+                <li>
+                    <a href="#lxc-lightweight-containers" aria-label="LXC: lightweight containers">LXC: lightweight containers</a></li>
+                <li>
+                    <a href="#vms-full-virtual-machines" aria-label="VMs: full virtual machines">VMs: full virtual machines</a></li>
+                <li>
+                    <a href="#what-do-i-use" aria-label="What do I use?">What do I use?</a></li></ul>
+                </li>
+                <li>
+                    <a href="#how-the-server-is-organised" aria-label="How the server is organised">How the server is organised</a></li>
+                <li>
+                    <a href="#services-im-running" aria-label="Services I&rsquo;m running">Services I&rsquo;m running</a><ul>
+                        
+                <li>
+                    <a href="#adguard-home" aria-label="AdGuard Home">AdGuard Home</a></li>
+                <li>
+                    <a href="#home-assistant" aria-label="Home Assistant">Home Assistant</a></li>
+                <li>
+                    <a href="#tailscale" aria-label="Tailscale">Tailscale</a></li>
+                <li>
+                    <a href="#n8n" aria-label="n8n">n8n</a></li>
+                <li>
+                    <a href="#postgresql" aria-label="PostgreSQL">PostgreSQL</a></li>
+                <li>
+                    <a href="#ollama" aria-label="Ollama">Ollama</a></li></ul>
+                </li>
+                <li>
+                    <a href="#what-i-might-add-later" aria-label="What I might add later">What I might add later</a></li>
+                <li>
+                    <a href="#conclusion" aria-label="Conclusion">Conclusion</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="building-a-home-server-with-a-mini-pc">Building a home server with a mini PC<a hidden class="anchor" aria-hidden="true" href="#building-a-home-server-with-a-mini-pc">#</a></h1>
+<p>Having a server at home opens up a huge range of possibilities. I&rsquo;d been thinking about setting one up for a while, and when I finally got started, I realised that half the process was simply deciding what to buy and what to install. So what is a home server actually good for? There are obvious advantages like cutting SaaS costs or gaining privacy, but there&rsquo;s one that matters more to me than all the others: <em>learning</em>.</p>
+<p>In this post I&rsquo;ll walk through the process, the options I considered and why I ended up building my server around a <strong>Beelink S12 Pro</strong> running <strong>Proxmox VE</strong>.</p>
+<h2 id="why-a-mini-pc">Why a mini PC?<a hidden class="anchor" aria-hidden="true" href="#why-a-mini-pc">#</a></h2>
+<p>The first decision is form factor. The most common options are:</p>
+<ul>
+<li><strong>An old PC or laptop from the cupboard.</strong> It works, but it&rsquo;s usually noisy, consumes a lot of power and takes up too much space.</li>
+<li><strong>A Raspberry Pi.</strong> Small and incredibly power-efficient, but limited in RAM and processing power for running several services at once.</li>
+<li><strong>A NAS.</strong> A solid choice if storage is the main priority, but the price climbs quickly.</li>
+<li><strong>A mini PC.</strong> Small, silent, low power consumption, reasonable price. Clear winner.</li>
+</ul>
+<h2 id="the-mini-pcs-i-considered">The mini PCs I considered<a hidden class="anchor" aria-hidden="true" href="#the-mini-pcs-i-considered">#</a></h2>
+<p>In 2025, there are three families that make sense for a home lab:</p>
+<p><strong>Intel N95 / N100</strong> is probably the most popular choice right now for this kind of use. Very good energy efficiency, full virtualisation support and highly competitive prices. The N100 is more efficient than the N95; the N95 wins slightly on raw performance but at the cost of a bit more power draw. There are countless manufacturers building models around these chips, and the difference between them is usually minimal: what varies is the connectivity, the stock RAM and the after-sales support.</p>
+<p><strong>Mac Mini</strong> deserves a mention because it&rsquo;s one of the most well-known options on the market. Performance is excellent and power consumption is surprisingly low, but for me the problem is the price — clearly higher than a Chinese mini PC — and I don&rsquo;t need something like that to get started.</p>
+<p><strong>Fanless mini PCs</strong> (no fan). Fully passive models exist, and they&rsquo;re very quiet as a result. The downside is that passive cooling limits sustained performance and adds a noticeable premium to the price.</p>
+<h2 id="the-final-decision-beelink-s12-pro">The final decision: Beelink S12 Pro<a hidden class="anchor" aria-hidden="true" href="#the-final-decision-beelink-s12-pro">#</a></h2>
+<p>I went with the <strong>Beelink S12 Pro</strong> running an <strong>Intel N100</strong>. The reasons were straightforward:</p>
+<ul>
+<li>Good value for money</li>
+<li>Very low power consumption</li>
+<li>16 GB of RAM</li>
+<li>NVMe SSD included</li>
+<li>Compact size</li>
+</ul>
+<p><img alt="Beelink S12 Pro" loading="lazy" src="/beelink.webp"></p>
+<p>The downside is that there&rsquo;s no dedicated GPU, so AI workloads are limited to small models that run reasonably on CPU. It&rsquo;s not the most powerful mini PC on the market, but it&rsquo;s one of the most balanced for a home lab. My goal isn&rsquo;t to run enterprise infrastructure — it&rsquo;s to run several services reliably and efficiently.</p>
+<h2 id="the-operating-system">The operating system<a hidden class="anchor" aria-hidden="true" href="#the-operating-system">#</a></h2>
+<p>With the hardware sorted, the next question was what to install. There are basically three paths:</p>
+<p><strong>Linux + Docker directly</strong> is the most popular option and the easiest to understand. You install Debian or Ubuntu Server, spin up services with Docker Compose and you&rsquo;re done. It works very well, but everything shares the same host: if something goes wrong at the OS level, everything goes down together.</p>
+<p><strong>TrueNAS or Unraid</strong> are interesting when the focus is a home NAS and your own personal cloud storage. That wasn&rsquo;t my use case.</p>
+<p><strong>Proxmox VE</strong> was something I&rsquo;d never heard of before — and yet it&rsquo;s what I chose. It&rsquo;s a virtualisation platform based on Debian that lets you manage virtual machines and LXC (<a href="https://en.wikipedia.org/wiki/LXC">LinuX Containers</a>) containers from a fairly comfortable web interface. The main advantage is isolation: each service lives in its own environment. If I break a container, everything else keeps running. If I want to experiment with something unusual, I do it in a throwaway VM and delete it without a trace.</p>
+<p>It&rsquo;s not the simplest option to start with, but the learning curve pays for itself.</p>
+<h2 id="installing-proxmox-ve">Installing Proxmox VE<a hidden class="anchor" aria-hidden="true" href="#installing-proxmox-ve">#</a></h2>
+<p>The installation process is simpler than it looks. Proxmox ships its system as an ISO image, so the first step is writing it to a USB drive.</p>
+<p>On Windows, the most convenient tool for this is <strong>Balena Etcher</strong>: download the ISO from the official Proxmox website, open Etcher, select the image and the drive, and in a few minutes you have a working installer. No fuss.</p>
+<p>With the USB drive ready, it&rsquo;s time to boot the Beelink from it. To do that you need to access the system&rsquo;s boot menu: on the S12 Pro, you do this by pressing the right key immediately after powering on (in my case <strong>F7</strong>, though it can vary by model). From there you select the USB drive as the boot device and the Proxmox installer loads on its own.</p>
+<p>The installer itself is a fairly guided graphical wizard. It basically asks for:</p>
+<ul>
+<li>The disk to install the system on</li>
+<li>Network configuration (IP address, gateway, DNS)</li>
+<li>The node name</li>
+<li>A password for the root user</li>
+</ul>
+<p>Ten minutes later the system is installed. You pull out the USB drive, the machine reboots and you can access the Proxmox web interface from any browser on your local network at <code>https://SERVER-IP:8006</code>.</p>
+<p><img alt="Proxmox VE installation complete" loading="lazy" src="/proxmox-finished.webp"></p>
+<p>From that point on, everything is managed from the browser.</p>
+<h2 id="key-concepts-in-proxmox-ve">Key concepts in Proxmox VE<a hidden class="anchor" aria-hidden="true" href="#key-concepts-in-proxmox-ve">#</a></h2>
+<p>Before starting to deploy services, there are two concepts worth understanding properly.</p>
+<h3 id="lxc-lightweight-containers">LXC: lightweight containers<a hidden class="anchor" aria-hidden="true" href="#lxc-lightweight-containers">#</a></h3>
+<p>LXC containers share the host system&rsquo;s kernel. This means lower memory usage, lower CPU overhead and almost instant startup. They&rsquo;re ideal for lightweight services like DNS servers, proxies or any application that doesn&rsquo;t need a very specific environment.</p>
+<h3 id="vms-full-virtual-machines">VMs: full virtual machines<a hidden class="anchor" aria-hidden="true" href="#vms-full-virtual-machines">#</a></h3>
+<p>Virtual machines run completely independently, with their own kernel and operating system. In exchange, they consume more resources and take longer to start. They&rsquo;re the right choice when you need maximum compatibility or isolation, or when the application itself recommends it.</p>
+<h3 id="what-do-i-use">What do I use?<a hidden class="anchor" aria-hidden="true" href="#what-do-i-use">#</a></h3>
+<p>My approach is simple:</p>
+<blockquote>
+<p>If something can run comfortably in an LXC, I run it in an LXC.</p></blockquote>
+<p>I only use virtual machines when they offer a clear advantage.</p>
+<h2 id="how-the-server-is-organised">How the server is organised<a hidden class="anchor" aria-hidden="true" href="#how-the-server-is-organised">#</a></h2>
+<p>My current setup is fairly straightforward:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>proxmox-node
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>├── CT 100 - alpine-adguard
+</span></span><span style="display:flex;"><span>├── CT 101 - tailscale
+</span></span><span style="display:flex;"><span>├── CT 102 - n8n
+</span></span><span style="display:flex;"><span>├── CT 103 - ollama
+</span></span><span style="display:flex;"><span>├── CT 104 - postgresql
+</span></span><span style="display:flex;"><span>│
+</span></span><span style="display:flex;"><span>└── VM 200 - home-assistant
+</span></span></code></pre></div><p>Lightweight services in LXC, more complex services in VMs. This keeps resource usage under control and makes administration simpler.</p>
+<h2 id="services-im-running">Services I&rsquo;m running<a hidden class="anchor" aria-hidden="true" href="#services-im-running">#</a></h2>
+<h3 id="adguard-home">AdGuard Home<a hidden class="anchor" aria-hidden="true" href="#adguard-home">#</a></h3>
+<p>Acts as a DNS server for my entire home network. It blocks ads at the network level, filters domains and gives visibility into the DNS traffic of every connected device. Deployed in an LXC container, it barely uses any resources.</p>
+<h3 id="home-assistant">Home Assistant<a hidden class="anchor" aria-hidden="true" href="#home-assistant">#</a></h3>
+<p>It&rsquo;s always caught my interest — it&rsquo;s a home automation management system. Where it really shines is in automations: it also collects data from sensors and integrates with practically any smart device you have at home. In this case I used a virtual machine because that&rsquo;s what Home Assistant recommends.</p>
+<h3 id="tailscale">Tailscale<a hidden class="anchor" aria-hidden="true" href="#tailscale">#</a></h3>
+<p>A VPN that lets me access my home network from anywhere without opening ports. Setup is very straightforward and connections are secure.</p>
+<h3 id="n8n">n8n<a hidden class="anchor" aria-hidden="true" href="#n8n">#</a></h3>
+<p><a href="https://n8n.io">n8n</a> is a workflow automation tool, similar in concept to Zapier or Make, but one you can self-host. It lets you connect applications and services together through a visual node-based interface and build fairly complex automations without writing code. It&rsquo;s one of the services I&rsquo;ve been getting the most out of lately.</p>
+<h3 id="postgresql">PostgreSQL<a hidden class="anchor" aria-hidden="true" href="#postgresql">#</a></h3>
+<p>Most of the services I set up end up needing some kind of database, and I&rsquo;d rather have a single centralised PostgreSQL instance than spin up a separate database per container. It&rsquo;s cleaner, easier to maintain and backups become much simpler.</p>
+<h3 id="ollama">Ollama<a hidden class="anchor" aria-hidden="true" href="#ollama">#</a></h3>
+<p>With all the AI hype right now, I wanted to experiment with local AI. I&rsquo;ve installed Ollama with a few small models to run tests. One important caveat: an Intel N100 was not designed for this. That said, it&rsquo;s perfectly valid for learning, running experiments and using lightweight models — all without depending on external services.</p>
+<h2 id="what-i-might-add-later">What I might add later<a hidden class="anchor" aria-hidden="true" href="#what-i-might-add-later">#</a></h2>
+<p>As with any home lab, the list of ideas never ends. Some possibilities on my radar:</p>
+<ul>
+<li>Jellyfin</li>
+<li>Nextcloud</li>
+<li>Grafana + Prometheus</li>
+<li>Immich</li>
+<li>Nginx Proxy Manager</li>
+</ul>
+<p>For now I&rsquo;m trying to keep things simple and only add new services when I actually need them. And being realistic, my Beelink can&rsquo;t handle much more — but maybe in the future I&rsquo;ll upgrade to a more powerful device or even a proper NAS… who knows!</p>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>Setting up a home server with a mini PC turned out to be much simpler than I expected. The Beelink S12 Pro offers plenty of power for a wide range of home services, and Proxmox VE provides the flexibility to experiment without fear of breaking anything.</p>
+<p>The combination of the two has let me build a stable, efficient and — above all — enjoyable platform to maintain. And as tends to happen in the world of self-hosting, once you start there&rsquo;s always another service to try.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://javierbarbaran.com/en/tags/homelab/">Homelab</a></li>
+      <li><a href="https://javierbarbaran.com/en/tags/self-hosting/">Self-Hosting</a></li>
+      <li><a href="https://javierbarbaran.com/en/tags/proxmox/">Proxmox</a></li>
+      <li><a href="https://javierbarbaran.com/en/tags/mini-pc/">Mini-Pc</a></li>
+      <li><a href="https://javierbarbaran.com/en/tags/home-server/">Home-Server</a></li>
+    </ul>
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on x"
+            href="https://x.com/intent/tweet/?text=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm&amp;url=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f&amp;hashtags=homelab%2cself-hosting%2cproxmox%2cmini-pc%2chome-server">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f&amp;title=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm&amp;summary=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm&amp;source=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f&title=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on whatsapp"
+            href="https://api.whatsapp.com/send?text=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm%20-%20https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on telegram"
+            href="https://telegram.me/share/url?text=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm&amp;url=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Home server: A mini PC, Proxmox and way too much enthusiasm on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Home%20server%3a%20A%20mini%20PC%2c%20Proxmox%20and%20way%20too%20much%20enthusiasm&u=https%3a%2f%2fjavierbarbaran.com%2fen%2fposts%2fhomeserver%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="https://javierbarbaran.com/en/">JavierBarbaran.com</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
