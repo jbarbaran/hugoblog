@@ -2,247 +2,234 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/es/posts/hello-world/</loc>
-    <lastmod>2025-01-31T23:33:38+01:00</lastmod>
+    <loc>https://javierbarbaran.com/es/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/hello-world/"
+                href="https://javierbarbaran.com/en/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/hello-world/"
+                href="https://javierbarbaran.com/es/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/</loc>
-    <lastmod>2025-01-31T23:33:38+01:00</lastmod>
+    <loc>https://javierbarbaran.com/es/posts/</loc>
+    <lastmod>2025-09-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/"
+                href="https://javierbarbaran.com/en/posts/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/"
+                href="https://javierbarbaran.com/es/posts/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/</loc>
-    <lastmod>2025-01-31T23:33:38+01:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/en/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="http://localhost:1313/es/posts/"
-                />
-  </url><url>
-    <loc>http://localhost:1313/es/posts/ubuntu24firststeps/</loc>
+    <loc>https://javierbarbaran.com/es/posts/ubuntu24firststeps/</loc>
     <lastmod>2024-10-26T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/ubuntu24firststeps/"
+                href="https://javierbarbaran.com/en/posts/ubuntu24firststeps/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/ubuntu24firststeps/"
+                href="https://javierbarbaran.com/es/posts/ubuntu24firststeps/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/ubuntu-macbook/</loc>
+    <loc>https://javierbarbaran.com/es/posts/ubuntu-macbook/</loc>
     <lastmod>2024-10-25T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/ubuntu-macbook/"
+                href="https://javierbarbaran.com/en/posts/ubuntu-macbook/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/ubuntu-macbook/"
+                href="https://javierbarbaran.com/es/posts/ubuntu-macbook/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/dietpi-raspi1/</loc>
+    <loc>https://javierbarbaran.com/es/posts/dietpi-raspi1/</loc>
     <lastmod>2024-09-09T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/dietpi-raspi1/"
+                href="https://javierbarbaran.com/en/posts/dietpi-raspi1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/dietpi-raspi1/"
+                href="https://javierbarbaran.com/es/posts/dietpi-raspi1/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/movies-series-app/</loc>
+    <loc>https://javierbarbaran.com/es/posts/movies-series-app/</loc>
     <lastmod>2024-02-02T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/movies-series-app/"
+                href="https://javierbarbaran.com/en/posts/movies-series-app/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/movies-series-app/"
+                href="https://javierbarbaran.com/es/posts/movies-series-app/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/books2024/</loc>
+    <loc>https://javierbarbaran.com/es/posts/books2024/</loc>
     <lastmod>2024-02-01T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/books2024/"
+                href="https://javierbarbaran.com/en/posts/books2024/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/books2024/"
+                href="https://javierbarbaran.com/es/posts/books2024/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/about/</loc>
+    <loc>https://javierbarbaran.com/es/about/</loc>
     <lastmod>2024-01-31T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/about/"
+                href="https://javierbarbaran.com/en/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/about/"
+                href="https://javierbarbaran.com/es/about/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/cleancode/</loc>
+    <loc>https://javierbarbaran.com/es/posts/cleancode/</loc>
     <lastmod>2016-08-21T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/cleancode/"
+                href="https://javierbarbaran.com/en/posts/cleancode/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/cleancode/"
+                href="https://javierbarbaran.com/es/posts/cleancode/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/googlenexus2012-android502/</loc>
+    <loc>https://javierbarbaran.com/es/posts/googlenexus2012-android502/</loc>
     <lastmod>2015-01-25T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/googlenexus2012-android502/"
+                href="https://javierbarbaran.com/en/posts/googlenexus2012-android502/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/googlenexus2012-android502/"
+                href="https://javierbarbaran.com/es/posts/googlenexus2012-android502/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/fog-computing/</loc>
+    <loc>https://javierbarbaran.com/es/posts/fog-computing/</loc>
     <lastmod>2015-01-03T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/fog-computing/"
+                href="https://javierbarbaran.com/en/posts/fog-computing/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/fog-computing/"
+                href="https://javierbarbaran.com/es/posts/fog-computing/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/jdk-ubuntu1004/</loc>
+    <loc>https://javierbarbaran.com/es/posts/jdk-ubuntu1004/</loc>
     <lastmod>2013-03-16T16:00:00+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/jdk-ubuntu1004/"
+                href="https://javierbarbaran.com/en/posts/jdk-ubuntu1004/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/jdk-ubuntu1004/"
+                href="https://javierbarbaran.com/es/posts/jdk-ubuntu1004/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/moocs/</loc>
+    <loc>https://javierbarbaran.com/es/posts/moocs/</loc>
     <lastmod>2013-02-03T16:00:02+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/moocs/"
+                href="https://javierbarbaran.com/en/posts/moocs/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/moocs/"
+                href="https://javierbarbaran.com/es/posts/moocs/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/posts/brussels/</loc>
+    <loc>https://javierbarbaran.com/es/posts/brussels/</loc>
     <lastmod>2007-07-29T17:34:02+01:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/posts/brussels/"
+                href="https://javierbarbaran.com/en/posts/brussels/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/posts/brussels/"
+                href="https://javierbarbaran.com/es/posts/brussels/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/archives/</loc>
+    <loc>https://javierbarbaran.com/es/archives/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/archives/"
+                href="https://javierbarbaran.com/en/archives/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/archives/"
+                href="https://javierbarbaran.com/es/archives/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/search/</loc>
+    <loc>https://javierbarbaran.com/es/search/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/search/"
+                href="https://javierbarbaran.com/en/search/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/search/"
+                href="https://javierbarbaran.com/es/search/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/categories/</loc>
+    <loc>https://javierbarbaran.com/es/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/categories/"
+                href="https://javierbarbaran.com/en/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/categories/"
+                href="https://javierbarbaran.com/es/categories/"
                 />
   </url><url>
-    <loc>http://localhost:1313/es/tags/</loc>
+    <loc>https://javierbarbaran.com/es/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://localhost:1313/en/tags/"
+                href="https://javierbarbaran.com/en/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="http://localhost:1313/es/tags/"
+                href="https://javierbarbaran.com/es/tags/"
                 />
   </url>
 </urlset>
