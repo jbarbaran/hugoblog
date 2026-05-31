@@ -44,8 +44,18 @@
                 href="https://javierbarbaran.com/en/tags/homelab/"
                 />
   </url><url>
-    <loc>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer-en/</loc>
+    <loc>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer/</loc>
     <lastmod>2026-05-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://javierbarbaran.com/es/posts/self-hosted-ai-trainer/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://javierbarbaran.com/en/posts/self-hosted-ai-trainer/"
+                />
   </url><url>
     <loc>https://javierbarbaran.com/en/</loc>
     <lastmod>2026-05-16T00:00:00+00:00</lastmod>

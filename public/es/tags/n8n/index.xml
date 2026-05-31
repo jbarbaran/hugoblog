@@ -10,9 +10,9 @@
     <atom:link href="https://javierbarbaran.com/es/tags/n8n/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Construí mi propio entrenador personal con IA local — y lo uso a diario</title>
-      <link>https://javierbarbaran.com/es/posts/entrenador-ia-local-es/</link>
+      <link>https://javierbarbaran.com/es/posts/self-hosted-ai-trainer/</link>
       <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://javierbarbaran.com/es/posts/entrenador-ia-local-es/</guid>
+      <guid>https://javierbarbaran.com/es/posts/self-hosted-ai-trainer/</guid>
       <description>Cómo monté un asistente de fitness privado con Ollama, n8n y Telegram, corriendo en mi propio servidor en casa, sin pagar suscripciones ni compartir mis datos con nadie.</description>
     </item>
   </channel>

@@ -10,9 +10,9 @@
     <atom:link href="https://javierbarbaran.com/en/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>I built a private AI personal trainer that runs on my home server</title>
-      <link>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer-en/</link>
+      <link>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer/</link>
       <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
-      <guid>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer-en/</guid>
+      <guid>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer/</guid>
       <description>How I put together a self-hosted fitness assistant using Ollama, n8n, and Telegram — no subscriptions, no cloud, no data leaving my house.</description>
     </item>
     <item>
