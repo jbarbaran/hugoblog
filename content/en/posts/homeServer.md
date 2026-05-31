@@ -48,7 +48,7 @@ I went with the **Beelink S12 Pro** running an **Intel N100**. The reasons were 
 - NVMe SSD included
 - Compact size
 
-![Beelink S12 Pro](/beelink.webp)
+![Beelink S12 Pro](/images/beelink.webp)
 
 The downside is that there's no dedicated GPU, so AI workloads are limited to small models that run reasonably on CPU. It's not the most powerful mini PC on the market, but it's one of the most balanced for a home lab. My goal isn't to run enterprise infrastructure — it's to run several services reliably and efficiently.
 
@@ -81,7 +81,7 @@ The installer itself is a fairly guided graphical wizard. It basically asks for:
 
 Ten minutes later the system is installed. You pull out the USB drive, the machine reboots and you can access the Proxmox web interface from any browser on your local network at `https://SERVER-IP:8006`.
 
-![Proxmox VE installation complete](/proxmox-finished.webp)
+![Proxmox VE installation complete](/images/proxmox-finished.webp)
 
 From that point on, everything is managed from the browser.
 

@@ -48,7 +48,7 @@ Me decanté por el **Beelink S12 Pro** con un **Intel N100**. Las razones fueron
 - SSD NVMe incluido
 - Tamaño compacto
 
-![Imagen Beelink S12 Pro](/beelink.webp)
+![Imagen Beelink S12 Pro](/images/beelink.webp)
 
 El lado malo es que no tiene GPU dedicada, así que el uso de modelos de IA está limitado a modelos pequeños que funcionan razonablemente con CPU. No es el mini PC más potente del mercado, pero sí uno de los más equilibrados para un homelab doméstico. Mi objetivo no es montar una infraestructura empresarial, sino ejecutar varios servicios de forma estable y eficiente.
 
@@ -81,7 +81,7 @@ El instalador en sí es un asistente gráfico bastante guiado. Básicamente te p
 
 En diez minutos el sistema está instalado. Retiras el pendrive, el equipo reinicia y ya puedes acceder a la interfaz web de Proxmox desde cualquier navegador en tu red local, en la dirección `https://IP-del-servidor:8006`.
 
-![Fin de la instalacion de Proxmox VE](/proxmox-finished.webp)
+![Fin de la instalacion de Proxmox VE](/images/proxmox-finished.webp)
 
 A partir de ahí, todo se gestiona desde el navegador.
 
