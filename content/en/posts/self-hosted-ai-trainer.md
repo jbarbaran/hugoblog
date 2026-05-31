@@ -1,5 +1,5 @@
 ---
-title: "I built a private AI personal trainer that runs on my home server"
+title: "How I built an AI agent to be my personal trainer"
 date: 2026-05-16
 draft: false
 tags:

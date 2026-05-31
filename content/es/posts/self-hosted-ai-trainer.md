@@ -1,5 +1,5 @@
 ---
-title: "Construí mi propio entrenador personal con IA local — y lo uso a diario"
+title: "Como construí un agente de IA para que sea mi entrenador personal"
 date: 2026-05-16
 draft: false
 tags:
