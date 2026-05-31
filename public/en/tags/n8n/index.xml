@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>N8n on JavierBarbaran.com</title>
+    <link>https://javierbarbaran.com/en/tags/n8n/</link>
+    <description>Recent content in N8n on JavierBarbaran.com</description>
+    <generator>Hugo -- 0.147.1</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://javierbarbaran.com/en/tags/n8n/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>I built a private AI personal trainer that runs on my home server</title>
+      <link>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer-en/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/posts/self-hosted-ai-trainer-en/</guid>
+      <description>How I put together a self-hosted fitness assistant using Ollama, n8n, and Telegram — no subscriptions, no cloud, no data leaving my house.</description>
+    </item>
+  </channel>
+</rss>

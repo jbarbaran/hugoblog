@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ollama on JavierBarbaran.com</title>
+    <link>https://javierbarbaran.com/es/tags/ollama/</link>
+    <description>Recent content in Ollama on JavierBarbaran.com</description>
+    <generator>Hugo -- 0.147.1</generator>
+    <language>es</language>
+    <lastBuildDate>Sat, 16 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://javierbarbaran.com/es/tags/ollama/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Construí mi propio entrenador personal con IA local — y lo uso a diario</title>
+      <link>https://javierbarbaran.com/es/posts/entrenador-ia-local-es/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/es/posts/entrenador-ia-local-es/</guid>
+      <description>Cómo monté un asistente de fitness privado con Ollama, n8n y Telegram, corriendo en mi propio servidor en casa, sin pagar suscripciones ni compartir mis datos con nadie.</description>
+    </item>
+  </channel>
+</rss>

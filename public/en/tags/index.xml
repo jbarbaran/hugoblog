@@ -6,20 +6,62 @@
     <description>Recent content in Tags on JavierBarbaran.com</description>
     <generator>Hugo -- 0.147.1</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 15 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://javierbarbaran.com/en/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Home-Server</title>
-      <link>https://javierbarbaran.com/en/tags/home-server/</link>
-      <pubDate>Mon, 15 Sep 2025 00:00:00 +0000</pubDate>
-      <guid>https://javierbarbaran.com/en/tags/home-server/</guid>
+      <title>Ai</title>
+      <link>https://javierbarbaran.com/en/tags/ai/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/ai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fitness</title>
+      <link>https://javierbarbaran.com/en/tags/fitness/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/fitness/</guid>
       <description></description>
     </item>
     <item>
       <title>Homelab</title>
       <link>https://javierbarbaran.com/en/tags/homelab/</link>
-      <pubDate>Mon, 15 Sep 2025 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
       <guid>https://javierbarbaran.com/en/tags/homelab/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>N8n</title>
+      <link>https://javierbarbaran.com/en/tags/n8n/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/n8n/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ollama</title>
+      <link>https://javierbarbaran.com/en/tags/ollama/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/ollama/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Self-Hosting</title>
+      <link>https://javierbarbaran.com/en/tags/self-hosting/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/self-hosting/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Telegram</title>
+      <link>https://javierbarbaran.com/en/tags/telegram/</link>
+      <pubDate>Sat, 16 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/telegram/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Home-Server</title>
+      <link>https://javierbarbaran.com/en/tags/home-server/</link>
+      <pubDate>Mon, 15 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://javierbarbaran.com/en/tags/home-server/</guid>
       <description></description>
     </item>
     <item>
@@ -34,13 +76,6 @@
       <link>https://javierbarbaran.com/en/tags/proxmox/</link>
       <pubDate>Mon, 15 Sep 2025 00:00:00 +0000</pubDate>
       <guid>https://javierbarbaran.com/en/tags/proxmox/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Self-Hosting</title>
-      <link>https://javierbarbaran.com/en/tags/self-hosting/</link>
-      <pubDate>Mon, 15 Sep 2025 00:00:00 +0000</pubDate>
-      <guid>https://javierbarbaran.com/en/tags/self-hosting/</guid>
       <description></description>
     </item>
   </channel>

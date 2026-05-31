@@ -1,0 +1,1504 @@
+{
+  "name": "AI personal trainer",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1664,
+        -32
+      ],
+      "id": "eaabeb7d-9d04-4a1b-be4f-a9712b9873f7",
+      "name": "Telegram Trigger",
+      "webhookId": "b298b544-e21c-4163-aba8-6ee7715d761e",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Telegram Trigger').item.json.message.text }}",
+        "options": {
+          "systemMessage": "=Coach deportivo personal. Español, breve y motivador. No inventes datos.\nAtleta: {{ $('Get perfil').item.json.nombre }} | Deporte: {{ $('Get perfil').item.json.deporte }} | Nivel: {{ $('Get perfil').item.json.nivel }}\nObjetivo: {{ $('Get perfil').item.json.objetivo }}\nHorarios: {{ $('Get perfil').item.json.horarios.join(', ') }}\nHoy: {{ $now.toLocaleString() }}\nÚltimas sesiones de pesas: {{ $('Get perfil').item.json.ultimas_sesiones }}\nActividades recientes (Strava): {{ $('Filter strava').item.json.resumen_strava }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1312,
+        592
+      ],
+      "id": "55737693-06ce-4a21-85e0-647f2a1c4c21",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:3b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        816
+      ],
+      "id": "5f8f7303-85fd-4e64-bfef-02daa9aacd70",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1472,
+        816
+      ],
+      "id": "77dcb8f8-e825-4ab2-8335-cf383da2a3ae",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  u.nombre, u.deporte, u.nivel, u.objetivo,\n  u.sexo, u.edad, u.altura, u.peso, u.forma_fisica, \n  u.tiempo_sesion, u.material,\n  array_agg(DISTINCT h.dia_semana || ' ' || to_char(h.hora, 'HH24:MI')) as horarios,\n  (\n    SELECT array_agg(ejercicio)\n    FROM ejercicios_excluidos\n    WHERE chat_id = u.chat_id\n  ) as ejercicios_excluidos,\n  (\n    SELECT json_agg(e)\n    FROM (\n      SELECT s.fecha, e.ejercicio, e.peso_kg, e.series, e.repeticiones, e.sensacion\n      FROM sesiones s\n      JOIN ejercicios_sesion e ON s.id = e.sesion_id\n      WHERE s.chat_id = u.chat_id\n      ORDER BY s.fecha DESC\n      LIMIT 20\n    ) e\n  ) as ultimas_sesiones\nFROM usuario u\nLEFT JOIN horarios_entreno h ON u.chat_id = h.chat_id\nWHERE u.chat_id = {{ $('Telegram Trigger').item.json.message.chat.id }}\nGROUP BY u.nombre, u.deporte, u.nivel, u.objetivo, u.sexo, u.edad, \n         u.altura, u.peso, u.forma_fisica, u.tiempo_sesion, u.material, u.chat_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        128,
+        592
+      ],
+      "id": "13851657-6000-4c84-aa88-9b442193009b",
+      "name": "Get perfil",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO sesiones (chat_id, fecha, tipo)\nVALUES ({{ $('Telegram Trigger').item.json.message.chat.id }}, CURRENT_DATE, 'pesas')\nRETURNING id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -96,
+        -32
+      ],
+      "id": "3da60881-f46b-468c-ace0-8cf1ce4242e9",
+      "name": "Create session",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO estado_sesion (chat_id, activa, sesion_id)\nVALUES ({{ $('Telegram Trigger').item.json.message.chat.id }}, true, {{ $('Create session').item.json.id }})\nON CONFLICT (chat_id) DO UPDATE SET activa = true, sesion_id = {{ $('Create session').item.json.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        2176,
+        -32
+      ],
+      "id": "d516f57a-1ef8-4463-bf6f-7cc9b051b287",
+      "name": "Activate session",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=💪 ¡Vamos ={{ $('Get perfil').item.json.nombre }}! Dime los ejercicios cuando quieras. Formato: ejercicio, peso, series x repeticiones, sensación Ejemplo: press banca, 5kg, 2x12, duro Cuando acabes escribe: fin entreno",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1952,
+        -32
+      ],
+      "id": "50183139-ca66-4a23-af78-c85a59a6e4fe",
+      "name": "Send start training message",
+      "webhookId": "ad026ff5-b392-40ea-8c51-327f63ac1c52",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "estado_sesion",
+          "mode": "list",
+          "cachedResultName": "estado_sesion"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "chat_id",
+              "value": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -320,
+        448
+      ],
+      "id": "802f1b2f-5bf7-4637-b829-aa652ba3cd4d",
+      "name": "Check active session",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const texto = $('Telegram Trigger').item.json.message.text;\nconst chatId = $('Telegram Trigger').item.json.message.chat.id;\nconst sesionId = $('Check active session').item.json.sesion_id;\n\nconst partes = texto.split(',').map(p => p.trim());\n\nconst ejercicio = partes[0];\nconst peso = parseFloat(partes[1]);\nconst seriesReps = partes[2].split('x');\nconst series = parseInt(seriesReps[0]);\nconst repeticiones = parseInt(seriesReps[1]);\nconst sensacion = partes[3] || null;\nconst comentarios = partes[4] || null;\nconst excluir = sensacion && sensacion.toLowerCase() === 'duro';\n\nreturn [{\n  json: {\n    sesion_id: sesionId,\n    chat_id: chatId,\n    ejercicio,\n    peso_kg: peso,\n    series,\n    repeticiones,\n    sensacion,\n    comentarios,\n    excluir\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        352
+      ],
+      "id": "5b9124d8-d47f-4df1-9bfc-5fbe13b6975a",
+      "name": "Parse exercise"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT e.ejercicio, e.series, e.repeticiones, e.peso_kg, e.sensacion\nFROM ejercicios_sesion e\nJOIN estado_sesion es ON e.sesion_id = es.sesion_id\nWHERE es.chat_id = {{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -96,
+        160
+      ],
+      "id": "976dccf9-c1f3-4e33-8b92-977ea174d273",
+      "name": "Summary session",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "UPDATE estado_sesion SET activa = false WHERE chat_id = {{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        128,
+        160
+      ],
+      "id": "12cf7ac6-cb42-4b33-958c-583bb7bbc42a",
+      "name": "Deactive session",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10
+      },
+      "type": "n8n-nodes-base.strava",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        592
+      ],
+      "id": "751879c2-7d11-41b1-afb7-3438951a25cf",
+      "name": "Get many activities",
+      "credentials": {
+        "stravaOAuth2Api": {
+          "name": "Strava account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const actividades = $input.all();\n\nconst resumen = actividades\n  .filter(a => a.json.sport_type !== 'WeightTraining')\n  .map(a => {\n    const fecha = new Date(a.json.start_date).toLocaleDateString('es-ES');\n    const distancia = a.json.distance ? (a.json.distance / 1000).toFixed(1) + 'km' : '';\n    const duracion = Math.round(a.json.moving_time / 60) + 'min';\n    return `${fecha} ${a.json.sport_type} ${distancia} ${duracion}`;\n  })\n  .join('\\n');\n\nreturn [{ json: { resumen_strava: resumen } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        592
+      ],
+      "id": "fec1496b-7d24-424a-b5ba-01705d25519c",
+      "name": "Filter strava"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 10
+      },
+      "type": "n8n-nodes-base.strava",
+      "typeVersion": 1.1,
+      "position": [
+        128,
+        -32
+      ],
+      "id": "76aa57f3-6dc9-4800-9807-6aa8cf6262ce",
+      "name": "Get many activities1",
+      "credentials": {
+        "stravaOAuth2Api": {
+          "name": "Strava account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT s.fecha, e.ejercicio, e.peso_kg, e.series, e.repeticiones, e.sensacion\nFROM sesiones s\nJOIN ejercicios_sesion e ON s.id = e.sesion_id\nWHERE s.chat_id = {{ $('Telegram Trigger').item.json.message.chat.id }}\nORDER BY s.fecha DESC\nLIMIT 20",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        576,
+        -32
+      ],
+      "id": "c833aaf3-be22-4575-b310-119932269cac",
+      "name": "Execute a SQL query7",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "llama3.2:3b",
+          "mode": "list",
+          "cachedResultName": "llama3.2:3b"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Historial reciente de pesas:\n{{ $('Execute a SQL query7').item.json }}\n\nActividad reciente fuera del gym:\n{{ $('Filter activities').item.json.resumen_strava }}\n\nGenera la sesión de hoy con ejercicios, peso, series y repeticiones."
+            }
+          ]
+        },
+        "options": {
+          "system": "=Eres un coach personal de pesas. Genera una sesión de entrenamiento para hoy basándote en los datos del atleta. Sé conciso y directo. Responde en español. No uses markdown.\nAtleta: {{ $('Get perfil1').item.json.nombre }} | Sexo: {{ $('Get perfil1').item.json.sexo }} | Edad: {{ $('Get perfil1').item.json.edad }} años | Altura: {{ $('Get perfil1').item.json.altura }}cm | Peso: {{ $('Get perfil1').item.json.peso }}kg\nNivel: {{ $('Get perfil1').item.json.nivel }} | Forma física: {{ $('Get perfil1').item.json.forma_fisica }}\nObjetivo: {{ $('Get perfil1').item.json.objetivo }}\nTiempo disponible: {{ $('Get perfil1').item.json.tiempo_sesion }} minutos\nMaterial disponible: {{ $('Get perfil1').item.json.material }}\nEjercicios a evitar: {{ $('Get perfil1').item.json.ejercicios_excluidos }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.ollama",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        -32
+      ],
+      "id": "bfbb49a5-5c5b-424f-90ca-aade593a5b70",
+      "name": "Message a model",
+      "credentials": {
+        "ollamaApi": {
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const actividades = $input.all();\n\nconst resumen = actividades\n  .filter(a => a.json.sport_type !== 'WeightTraining')\n  .map(a => {\n    const fecha = new Date(a.json.start_date).toLocaleDateString('es-ES');\n    const distancia = a.json.distance ? (a.json.distance / 1000).toFixed(1) + 'km' : '';\n    const duracion = Math.round(a.json.moving_time / 60) + 'min';\n    return `${fecha} ${a.json.sport_type} ${distancia} ${duracion}`;\n  })\n  .join('\\n');\n\nreturn [{ json: { resumen_strava: resumen } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        -32
+      ],
+      "id": "fe1dc42b-148a-4016-8519-e57911c4c2ab",
+      "name": "Filter activities"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT \n  u.nombre, u.deporte, u.nivel, u.objetivo,\n  u.sexo, u.edad, u.altura, u.peso, u.forma_fisica, \n  u.tiempo_sesion, u.material,\n  array_agg(DISTINCT h.dia_semana || ' ' || to_char(h.hora, 'HH24:MI')) as horarios,\n  (\n    SELECT array_agg(ejercicio)\n    FROM ejercicios_excluidos\n    WHERE chat_id = u.chat_id\n  ) as ejercicios_excluidos,\n  (\n    SELECT json_agg(e)\n    FROM (\n      SELECT s.fecha, e.ejercicio, e.peso_kg, e.series, e.repeticiones, e.sensacion\n      FROM sesiones s\n      JOIN ejercicios_sesion e ON s.id = e.sesion_id\n      WHERE s.chat_id = u.chat_id\n      ORDER BY s.fecha DESC\n      LIMIT 20\n    ) e\n  ) as ultimas_sesiones\nFROM usuario u\nLEFT JOIN horarios_entreno h ON u.chat_id = h.chat_id\nWHERE u.chat_id = {{ $('Telegram Trigger').item.json.message.chat.id }}\nGROUP BY u.nombre, u.deporte, u.nivel, u.objetivo, u.sexo, u.edad, \n         u.altura, u.peso, u.forma_fisica, u.tiempo_sesion, u.material, u.chat_id",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        800,
+        -32
+      ],
+      "id": "372e773c-cf50-4322-9b47-723e26893108",
+      "name": "Get perfil1",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.texto_limpio }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1728,
+        -32
+      ],
+      "id": "607206e6-ae23-4f24-977f-ed1ecc4510b2",
+      "name": "Send start training message1",
+      "webhookId": "ad026ff5-b392-40ea-8c51-327f63ac1c52",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const texto = $input.first().json.content.replace(/\\\\n/g, '\\n')\n  .replace(/\\*\\*(.+?)\\*\\*/g, '<b>$1</b>')\n  .replace(/\\*(.+?)\\*/g, '<i>$1</i>')\n  .replace(/^#{1,6}\\s(.+)$/gm, '<b>$1</b>')\n  .replace(/^\\s*\\*\\s/gm, '• ')\n  .replace(/\\t/g, '  ');\n\nreturn [{ json: { texto_limpio: texto } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        -32
+      ],
+      "id": "bf49942e-f8fe-4df5-ab34-f91ecedd17a6",
+      "name": "Sanitize output"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ONBOARDING_WORKFLOW_ID",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "message_chat_id": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "message_text": "={{ $('Telegram Trigger').item.json.message.text }}"
+          },
+          "matchingColumns": [
+            "message_chat_id",
+            "message_text"
+          ],
+          "schema": [
+            {
+              "id": "message_chat_id",
+              "displayName": "message_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message_text",
+              "displayName": "message_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -560,
+        -48
+      ],
+      "name": "Call Onboarding",
+      "id": "166f4247-044b-47f0-9a48-393d9a066db0"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "353e6447-516a-4a63-98ee-27bc0545ec8e",
+              "leftValue": "={{ $json.callback_query }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -1440,
+        -32
+      ],
+      "id": "5f100231-6c21-49c4-90b1-facb0b95eb97",
+      "name": "Is it a reminder?"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "confirmar_entreno",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "aed2ed89-8af0-4741-97c9-292e6da94c1b"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "53d7f3a4-b2f4-4ffa-9911-b6f41c4c2c17",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cambiar_hora",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "302b5b5a-b8af-4268-b2df-a08488530bb0",
+                    "leftValue": "={{ $json.callback_query.data }}",
+                    "rightValue": "cancelar_entreno",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -1216,
+        -240
+      ],
+      "id": "78512240-6789-44a7-91fe-d9bed7a976b6",
+      "name": "Switch reminder"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "text": "✅ ¡Perfecto! Cuando estés listo escribe: inicio entreno",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        -416
+      ],
+      "id": "a1f030b0-4489-4f41-b51e-bc19d796ade8",
+      "name": "Send confirm entreno",
+      "webhookId": "5c98c6f4-4f9c-42fc-95cb-b7ca5ab56cbc",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "text": "=⏰ ¿A qué hora quieres entrenar hoy?\nEscríbelo así: 20:00",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        -224
+      ],
+      "id": "66f4a892-cdf9-4028-9899-ef9b76baa2ba",
+      "name": "Send reschedule entreno",
+      "webhookId": "d53955ce-a7ba-46dc-b1dc-acb3eaa87f65",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.callback_query.message.chat.id }}",
+        "text": "❌ Entendido, hoy descansas. ¡Hasta mañana! 💪",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -992,
+        -32
+      ],
+      "id": "3b337724-e70d-4fe6-a8df-c99596d84c32",
+      "name": "Send cancel entreno",
+      "webhookId": "a0203b07-6d47-4222-b518-f0dad1ca64cb",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cb019f2a-4e04-43c1-b2f9-22d70101e9cb",
+              "name": "sessionId",
+              "value": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1216,
+        160
+      ],
+      "id": "255e4cc9-db03-4579-845f-a87a79de8170",
+      "name": "Get chat id"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "usuario",
+          "mode": "list",
+          "cachedResultName": "usuario"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "chat_id",
+              "value": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -992,
+        160
+      ],
+      "id": "bdce761f-08e8-42f8-9cfa-08802b27420b",
+      "name": "Find chat id",
+      "alwaysOutputData": true,
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3f3dc655-5f9f-47dd-b6f3-4e305937ee86",
+              "leftValue": "={{ Object.keys($json).length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -768,
+        160
+      ],
+      "id": "71d01512-c739-4f49-ae80-b974df238f0e",
+      "name": "Is a new user?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "9a8bd167-e6c6-43f1-83eb-8dd79f929fb3",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.text.toLowerCase() }}",
+              "rightValue": "inicio entreno",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "3a81e25a-2da2-4b37-8339-275b7a0e986b",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.text.toLowerCase() }}",
+              "rightValue": "fin entreno",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -544,
+        256
+      ],
+      "id": "127abb6d-bd3d-47f5-8581-a7799f88d43d",
+      "name": "Is it the start or end of an entreno?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0709decf-9f0d-4778-8174-fee82715ed70",
+              "leftValue": "={{ $json.activa }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -96,
+        448
+      ],
+      "id": "2094d086-f3d5-408c-8ce8-f40f2ca9761d",
+      "name": "Is it an active entreno session?"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO ejercicios_sesion (sesion_id, ejercicio, series, repeticiones, peso_kg, sensacion)\nVALUES (\n  {{ $json.sesion_id }},\n  '{{ $json.ejercicio }}',\n  {{ $json.series }},\n  {{ $json.repeticiones }},\n  {{ $json.peso_kg }},\n  '{{ $json.sensacion }}'\n)",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        352,
+        352
+      ],
+      "id": "f0ec17a1-66f8-45f7-a5ad-4d36766355b4",
+      "name": "Save exercise",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "caa5a686-ad69-4a10-be27-83553d258431",
+              "leftValue": "={{ $('Parse exercise').item.json.excluir }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        576,
+        352
+      ],
+      "id": "d2ac5ef1-c14e-4fa9-9215-b4582e292b2c",
+      "name": "Is the exercise excluded?"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "INSERT INTO ejercicios_excluidos (chat_id, ejercicio, motivo)\nVALUES (\n  {{ $('Parse exercise').item.json.chat_id }},\n  '{{ $('Parse exercise').item.json.ejercicio }}',\n  'sensacion duro'\n)",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        800,
+        256
+      ],
+      "id": "923e14a6-06ec-4f2d-b5cf-63fd79ac4511",
+      "name": "Save the exercise as excluded",
+      "credentials": {
+        "postgres": {
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=✅ {{ $('Parse exercise').item.json.ejercicio }} anotado",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        352
+      ],
+      "id": "356087ae-b70e-4da1-825d-c2e30772b135",
+      "name": "Send a confirmation the exercise has been saved",
+      "webhookId": "37dc5f23-bb5d-4257-8209-4ecd14f3aedf",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1972e387-8637-4201-bb39-bca53a1bd7d0",
+              "name": "sessionId",
+              "value": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        800,
+        592
+      ],
+      "id": "bdce20c0-b372-4780-ac49-d2afdbbf820b",
+      "name": "Get session ID"
+    },
+    {
+      "parameters": {
+        "operation": "sendChatAction",
+        "chatId": "={{ $('Is a new user?').item.json.chat_id }}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        592
+      ],
+      "id": "f00771c6-e131-4993-91e5-813f32498c75",
+      "name": "Bot is typing",
+      "webhookId": "945703f5-00cc-46e6-92c2-b64c3cbf1758",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1680,
+        592
+      ],
+      "id": "4fe448d1-b858-489a-9d34-3895e215405f",
+      "name": "Send AI reply",
+      "webhookId": "a13d7632-e193-4b57-b519-90d7824ee8b0",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "4d7b4881-226a-4d72-a8f0-daa31b0b19ab",
+              "leftValue": "={{ $('Telegram Trigger').item.json.message.text.toLowerCase() }}",
+              "rightValue": "inicio",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -320,
+        64
+      ],
+      "id": "6baf6f6a-597b-4a4f-bf1d-685bcdd9a4e4",
+      "name": "Is it the start of an entreno?"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "🏁 ¡Entreno completado ={{ $('Get perfil').item.json.nombre }}! ¡Buen trabajo! 💪\n\nLos datos han quedado guardados. ¡A recuperar!",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        352,
+        160
+      ],
+      "id": "995a89db-03cf-41bf-8aae-f7760646c585",
+      "name": "Send a entreno finished",
+      "webhookId": "b4a257c7-c35f-4542-9ffa-26c8575e9376",
+      "credentials": {
+        "telegramApi": {
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Is it a reminder?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send AI reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get perfil": {
+      "main": [
+        [
+          {
+            "node": "Get many activities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create session": {
+      "main": [
+        [
+          {
+            "node": "Get many activities1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activate session": {
+      "main": [
+        []
+      ]
+    },
+    "Check active session": {
+      "main": [
+        [
+          {
+            "node": "Is it an active entreno session?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse exercise": {
+      "main": [
+        [
+          {
+            "node": "Save exercise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summary session": {
+      "main": [
+        [
+          {
+            "node": "Deactive session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deactive session": {
+      "main": [
+        [
+          {
+            "node": "Send a entreno finished",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many activities": {
+      "main": [
+        [
+          {
+            "node": "Filter strava",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter strava": {
+      "main": [
+        [
+          {
+            "node": "Get session ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many activities1": {
+      "main": [
+        [
+          {
+            "node": "Filter activities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute a SQL query7": {
+      "main": [
+        [
+          {
+            "node": "Get perfil1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Sanitize output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send start training message": {
+      "main": [
+        [
+          {
+            "node": "Activate session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter activities": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get perfil1": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send start training message1": {
+      "main": [
+        [
+          {
+            "node": "Send start training message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitize output": {
+      "main": [
+        [
+          {
+            "node": "Send start training message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is it a reminder?": {
+      "main": [
+        [
+          {
+            "node": "Switch reminder",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get chat id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch reminder": {
+      "main": [
+        [
+          {
+            "node": "Send confirm entreno",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send reschedule entreno",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send cancel entreno",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send confirm entreno": {
+      "main": [
+        []
+      ]
+    },
+    "Get chat id": {
+      "main": [
+        [
+          {
+            "node": "Find chat id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find chat id": {
+      "main": [
+        [
+          {
+            "node": "Is a new user?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is a new user?": {
+      "main": [
+        [
+          {
+            "node": "Call Onboarding",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Is it the start or end of an entreno?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is it the start or end of an entreno?": {
+      "main": [
+        [
+          {
+            "node": "Is it the start of an entreno?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check active session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is it an active entreno session?": {
+      "main": [
+        [
+          {
+            "node": "Parse exercise",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get perfil",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save exercise": {
+      "main": [
+        [
+          {
+            "node": "Is the exercise excluded?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is the exercise excluded?": {
+      "main": [
+        [
+          {
+            "node": "Save the exercise as excluded",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a confirmation the exercise has been saved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save the exercise as excluded": {
+      "main": [
+        [
+          {
+            "node": "Send a confirmation the exercise has been saved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a confirmation the exercise has been saved": {
+      "main": [
+        []
+      ]
+    },
+    "Get session ID": {
+      "main": [
+        [
+          {
+            "node": "Bot is typing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bot is typing": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is it the start of an entreno?": {
+      "main": [
+        [
+          {
+            "node": "Create session",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Summary session",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}
